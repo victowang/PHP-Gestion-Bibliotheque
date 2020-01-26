@@ -3,6 +3,6 @@
         <a href="comptes.php">Comptes</a>
         <a href="commandes.php">Commandes</a>
 
-        <a href="login.php">log in</a>
-        <a href="signin.php">sign in</a>
+        <a href="login.php">Se connecter</a>
+        <a href="signin.php">Créer un compte</a>
 </nav>

@@ -6,8 +6,8 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 
 <body>
-    <h1> Bienvenue ! </h1>
+    <h1 id="titre"> Bienvenue ! </h1>
     <?php include "navbar.php";?>
-
+    <h1>Connexion</h1>
     <?php include "footer.html";?>
 </body>

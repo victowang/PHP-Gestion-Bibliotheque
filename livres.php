@@ -8,6 +8,6 @@
 <body>
     <h1 id="titre"> Bienvenue ! </h1>
     <?php include "navbar.php";?>
-    <h1>Mes livres</h1>
+    <h1>Liste des livres</h1>
     <?php include "footer.html";?>
 </body>

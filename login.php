@@ -12,7 +12,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["lastName"] !== "") and (
 
     $mylastname = $_POST['lastName'];
     $mypassword = $_POST['password'];
-    $requete = "SELECT idpersonne, libraire FROM `personnes` WHERE nom='$mylastname' AND password='$mypassword'";
+    $requete = "SELECT idpersonne, libraire, prenom FROM `personnes` WHERE nom='$mylastname' AND password='$mypassword'";
     $statement = $pdo->query($requete);
     $arrayResultat = $statement->fetch();
     if (empty($arrayResultat)){
@@ -21,6 +21,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["lastName"] !== "") and (
     else {
         $_SESSION['user_id'] = $arrayResultat['idpersonne'];
         $_SESSION['is_libraire'] = $arrayResultat['libraire'];
+        $_SESSION['prenom'] = $arrayResultat['prenom'];
         $status = "Connecté";
         
     }

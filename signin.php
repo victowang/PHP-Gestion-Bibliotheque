@@ -5,23 +5,68 @@
 
 <link rel="stylesheet" type="text/css" href="style.css">
 
+<?php
+include("config.php");
+session_start();
+$status = "";
+if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["username"] !== "") and ($_POST["username"] !== "")) {
+    // username and password sent from form 
+
+    $mylastname = $_POST['lastName'];
+    $myfirstname = $_POST['firstName'];
+    $myaddress = $_POST['address'];
+    $mypassword = $_POST['password'];
+    $requete = "SELECT idpersonne FROM `personnes` WHERE nom = '$mylastname' AND prenom = '$myfirstname'";
+    $statement = $pdo->query($requete);
+    $arrayResultat = $statement->fetch();
+    
+    if (empty($arrayResultat)){
+        $requete = "INSERT INTO `personnes` (nom, prenom, adresse, password) VALUES ('$mylastname', '$myfirstname', '$myaddress', '$mypassword')";
+        $statement = $pdo->query($requete);
+        $status = "Compte créé";
+        // On suppose que l'insertion se passe sans soucis
+    }
+    else {
+        $status = "Ces nom et prénom sont déja pris";
+    }
+    
+
+    /*
+    $arrayResultat = $statement->fetch();
+    if (empty($arrayResultat)){
+        $status = "Your Login Name or Password is invalid";
+    }
+    else {
+        $_SESSION['user_id'] = $arrayResultat['idpersonne'];
+        $_SESSION['is_libraire'] = $arrayResultat['libraire'];
+        $status = "Connecté";
+        
+    }
+    */
+}
+?>
+
 <body>
     <h1 id="titre"> Bienvenue ! </h1>
     <?php include "navbar.php";?>
     <h1>Créer un compte</h1>
-    <form method = "POST">
+    <form method = "POST" action="">
         <h4>Nom</h4>
-        <input type="text" name="lastName" />
+        <input type="text" name="lastName" required/>
         <h4>Prénom</h4>
-        <input type="text" name="firstName" />
+        <input type="text" name="firstName" required/>
         <h4>Adresse</h4>
-        <input type="text" name="address" />
-        <h4>Nom d'utilisateur</h4>
-        <input type="text" name="userName" />
+        <input type="text" name="address" required/>
         <h4>Mot de passe</h4>
-        <input type="text" name="password" />
+        <input type="text" name="password" required/>
         <div></div>
         <input type="submit" value = "Créer un compte"/>
     </form>
+
+    <div>
+        <?php 
+            echo $status;
+        ?>
+    </div>
     <?php include "footer.html";?>
 </body>

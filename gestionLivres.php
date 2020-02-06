@@ -42,7 +42,7 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") and !empty($_POST)) {
                 echo '<tr>';
                 echo '<td>'.$livre['titre'].'</td>';
                 echo '<td>'.$livre['auteur'].'</td>';
-                echo '<td>'.$livre['prix'].'</td>';
+                echo '<td>'.$livre['prix'].'€</td>';
                 echo '</tr>';
             }
         ?>

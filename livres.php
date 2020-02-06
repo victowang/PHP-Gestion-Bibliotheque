@@ -17,11 +17,12 @@
 
     <h1>Liste des livres</h1>
 
-    <table class = "livres">
+    <table class = "fermee">
         <tr>
             <th>Titre</th>
             <th>Auteur</th>
             <th>Prix</th>
+            <th></th>
         </tr>    
         <?php
             include("config.php");
@@ -34,7 +35,8 @@
                 echo '<tr>';
                 echo '<td>'.$livre['titre'].'</td>';
                 echo '<td>'.$livre['auteur'].'</td>';
-                echo '<td>'.$livre['prix'].'</td>';
+                echo '<td>'.$livre['prix'].'€</td>';
+                echo '<td>Ajouter au panier</td>';
                 echo '</tr>';
             }
         ?>

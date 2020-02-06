@@ -31,7 +31,6 @@ session_start();
                 $requete = "SELECT idcmd FROM `commandes` WHERE idpersonne=".$_SESSION['user_id']." AND validee=0";
                 $statement = $pdo->query($requete);
                 $idCommande = $statement->fetch()['idcmd'];
-                print_r($idCommande);
                 $requete = "DELETE FROM `lignescmd` WHERE idcmd='$idCommande'; DELETE FROM `commandes` WHERE idcmd='$idCommande'";
                 $statement = $pdo->query($requete);
             }

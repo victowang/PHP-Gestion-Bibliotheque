@@ -4,7 +4,9 @@
 </head>
 
 <link rel="stylesheet" type="text/css" href="style.css">
+
 <?php include "navbar.php";?>
+
 
 <body>
     <?php if(is_null($_SESSION['user_id'])){ ?>

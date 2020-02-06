@@ -4,35 +4,39 @@
 </head>
 
 <?php
-include("config.php");
-session_start();
-$status = "";
-if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["lastName"] !== "") and ($_POST["password"] !== "")) {
-    // username and password sent from form 
+    include("config.php");
+    session_start();
+    $status = "";
+    if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["lastName"] !== "") and ($_POST["password"] !== "")) {
+        // username and password sent from form 
 
-    $mylastname = $_POST['lastName'];
-    $mypassword = $_POST['password'];
-    $requete = "SELECT idpersonne, libraire, prenom FROM `personnes` WHERE nom='$mylastname' AND password='$mypassword'";
-    $statement = $pdo->query($requete);
-    $arrayResultat = $statement->fetch();
-    if (empty($arrayResultat)){
-        $status = "Your Login Name or Password is invalid";
+        $mylastname = $_POST['lastName'];
+        $mypassword = $_POST['password'];
+        $requete = "SELECT idpersonne, libraire, prenom FROM `personnes` WHERE nom='$mylastname' AND password='$mypassword'";
+        $statement = $pdo->query($requete);
+        $arrayResultat = $statement->fetch();
+        if (empty($arrayResultat)){
+            $status = "Your Login Name or Password is invalid";
+        }
+        else {
+            $_SESSION['user_id'] = $arrayResultat['idpersonne'];
+            $_SESSION['is_libraire'] = $arrayResultat['libraire'];
+            $_SESSION['prenom'] = $arrayResultat['prenom'];
+            $status = "Connecté";
+            header('Location: index.php');
+            exit();
+        }
     }
-    else {
-        $_SESSION['user_id'] = $arrayResultat['idpersonne'];
-        $_SESSION['is_libraire'] = $arrayResultat['libraire'];
-        $_SESSION['prenom'] = $arrayResultat['prenom'];
-        $status = "Connecté";
-        
-    }
-}
 ?>
 
 <link rel="stylesheet" type="text/css" href="style.css">
-
+<?php include "navbar.php"; ?>
 <body>
-    <h1 id="titre"> Bienvenue ! </h1>
-    <?php include "navbar.php"; ?>
+    <?php if($_SESSION['user_id']) { ?>
+        <?php http_response_code(403) ?>
+        <p>Vous êtes déjà connecté... <a href="index.php">Retour à l'accueil</a></p>
+        <!--TODO: ajouter l'image d'un lapin sceptique.-->
+    <?php } else {?>
     <h1>Connexion</h1>
 
     <form method="POST" action="">
@@ -47,6 +51,6 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["lastName"] !== "") and (
     <div> 
         <?php echo $status;?>
     </div>
-
-    <?php include "footer.html"; ?>
+    <?php } ?>
 </body>
+<?php include "footer.html"; ?>

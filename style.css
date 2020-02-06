@@ -3,6 +3,11 @@ body{
   padding: 0;
 }
 
+img{
+  max-width:20%;
+  max-height:20%;
+}
+
 #titre{
   width: 100%;
   padding: 0%;
@@ -35,4 +40,21 @@ footer{
   text-align: right;
   right: 0%;
   display: inline-block;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+}
+
+table, th, td {
+  border: 1px solid black;
+  text-align: left;
 }

@@ -45,10 +45,14 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["username"] !== "") and (
     */
 }
 ?>
+<?php include "navbar.php";?>
 
 <body>
-    <h1 id="titre"> Bienvenue ! </h1>
-    <?php include "navbar.php";?>
+    <?php if($_SESSION['user_id']) { ?>
+        <?php http_response_code(403) ?>
+        <p>Vous êtes déjà connecté... <a href="index.php">Retour à l'accueil</a></p>
+        <!--TODO: ajouter l'image d'un lapin sceptique.-->
+    <?php } else {?>
     <h1>Créer un compte</h1>
     <form method = "POST" action="">
         <h4>Nom</h4>
@@ -68,5 +72,6 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["username"] !== "") and (
             echo $status;
         ?>
     </div>
-    <?php include "footer.html";?>
+    <?php } ?>
 </body>
+<?php include "footer.html";?>

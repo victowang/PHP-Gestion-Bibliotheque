@@ -19,7 +19,7 @@
                 <a href="signin.php">Créer un compte</a>
         <?php } else { ?> 
                 <a href="livres.php">Liste des livres</a>
-                <?php if($_SESSiON['is_libraire'] !== '0') { ?>
+                <?php if($_SESSION['is_libraire'] === '1') { ?>
                         <a href="comptes.php">Comptes</a>
                         <a href="commandes.php">Commandes</a>                        
                 <?php } else { ?>

@@ -18,11 +18,12 @@
                 <a href="login.php">Se connecter</a>
                 <a href="signin.php">Créer un compte</a>
         <?php } else { ?> 
-                <a href="livres.php">Liste des livres</a>
                 <?php if($_SESSION['is_libraire'] === '1') { ?>
-                        <a href="comptes.php">Comptes</a>
+                        <a href="gestionLivres.php">Gérer les livres</a>
+                        <a href="comptes.php">Clients</a>
                         <a href="commandes.php">Commandes</a>                        
                 <?php } else { ?>
+                        <a href="livres.php">Liste des livres</a>
                         <a href="monPanier.php">Mon panier</a>
                 <?php } ?>
                 <a href="logout.php">Se déconnecter</a>

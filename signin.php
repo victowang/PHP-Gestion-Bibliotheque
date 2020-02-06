@@ -9,7 +9,7 @@
 include("config.php");
 session_start();
 $status = "";
-if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["username"] !== "") and ($_POST["username"] !== "")) {
+if (($_SERVER["REQUEST_METHOD"] == "POST") and ($_POST["username"] !== "")) {
     // username and password sent from form 
 
     $mylastname = $_POST['lastName'];

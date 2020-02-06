@@ -23,7 +23,7 @@
                         <a href="comptes.php">Comptes</a>
                         <a href="commandes.php">Commandes</a>                        
                 <?php } else { ?>
-                        <a href="mesCommandes.php">Mes commandes</a>
+                        <a href="monPanier.php">Mon panier</a>
                 <?php } ?>
                 <a href="logout.php">Se déconnecter</a>
         <?php } ?>

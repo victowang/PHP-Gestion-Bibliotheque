@@ -6,11 +6,6 @@
 <?php
 include("config.php");
 session_start();
-
-if (($_SERVER["REQUEST_METHOD"] === "POST") and $_POST['Valider']==="Valider la commande") {
-    $requete = "UPDATE `commandes` SET validee=1 WHERE idpersonne=2 AND validee=0";
-    $statement = $pdo->query($requete);
-}
 ?>
 
 
@@ -23,16 +18,32 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") and $_POST['Valider']==="Valider la 
         <?php http_response_code(403) ?>
         <p>Vous n'avez pas accès à cette page. <a href="index.php">Retour à l'accueil</a></p>
         <!--TODO: ajouter l'image d'un lapin triste.-->
-    <?php } else {?>
+    <?php
+        } 
+        else 
+        {   
+            //TODO : Faire fonctionner ça
+            if (($_SERVER["REQUEST_METHOD"] === "POST") and $_POST['Panier']==="Valider la commande") {
+                $requete = "UPDATE `commandes` SET validee=1 WHERE idpersonne=".$_SESSION['user_id']." AND validee=0";
+                print_r($requete);
+                $statement = $pdo->query($requete);
+            } elseif (($_SERVER["REQUEST_METHOD"] === "POST") and $_POST['Panier']==="Supprimer cette commande") {
+                $requete = "SELECT idcmd FROM `commandes` WHERE idpersonne=".$_SESSION['user_id']." AND validee=0";
+                $statement = $pdo->query($requete);
+                $idCommande = $statement->fetch()['idcmd'];
+                print_r($idCommande);
+                $requete = "DELETE FROM `lignescmd` WHERE idcmd='$idCommande'; DELETE FROM `commandes` WHERE idcmd='$idCommande'";
+                $statement = $pdo->query($requete);
+            }
+        ?>
         <h1>Mon Panier</h1>
         <?php
-
-            $requete = "SELECT titre, auteur, prix, qte FROM (SELECT idouvrage, qte FROM `commandes` JOIN `lignescmd` ON commandes.idcmd=lignescmd.idcmd WHERE idpersonne=".$_SESSION['user_id']." AND commandes.validee=0) AS maCommande JOIN `ouvrages`ON maCommande.idouvrage=ouvrages.idouvrage;";
+            $requete = "SELECT titre, auteur, prix, qte, idcmd FROM (SELECT idouvrage, qte, commandes.idcmd FROM `commandes` JOIN `lignescmd` ON commandes.idcmd=lignescmd.idcmd WHERE idpersonne=".$_SESSION['user_id']." AND commandes.validee=0) AS maCommande JOIN `ouvrages`ON maCommande.idouvrage=ouvrages.idouvrage;";
             $statement = $pdo->query($requete);
             $arrayResultat = $statement->fetchAll();
             if (!empty($arrayResultat)) {
         ?>
-            <table>
+            <table class="fermee">
                 <tr>
                     <th>Titre</th>
                     <th>Auteur</th>
@@ -58,7 +69,8 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") and $_POST['Valider']==="Valider la 
             </table>
             <p>Prix total : <?php echo $prixTotal; ?>€ </p>
             <form method="POST" action="">
-                <input type="submit" name="Valider" value="Valider la commande" />
+                <input type="submit" name="Panier" value="Valider la commande" />
+                <input type="submit" name="Panier" value="Supprimer cette commande" />
             </form>
             <?php
             } else {
@@ -72,10 +84,5 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") and $_POST['Valider']==="Valider la 
     <?php } ?>
 
  
-    
-
-
-
-
 </body>
 <?php include "footer.html";?>

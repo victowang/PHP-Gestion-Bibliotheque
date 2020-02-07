@@ -2,7 +2,6 @@
 
 Application de gestion de librairie en ligne avec LAMP  
 
-sudo systemctl start apache2.service
 URL : http://localhost/devweb/  
 
 ## Gestion des doublons dans la base de données
@@ -14,3 +13,7 @@ Au cours de ce TP nous avons remarqué dans la table `lignescmd` plusieurs ligne
 On a considéré que le client pouvait valider ou supprimer sa commande à partir de la page "Mon Panier", et que la mémorisation en base de données de son panier (commande non validée) se fait automatiquement à chaque ajout.
 
 Cela garantit également que le panier sera mémorisé dans la base de données même après que l'utilisateur soit déconnecté.
+
+Nous avons considéré que le client ne peut avoir qu'une seule commande non validée (qu'on appelle le Panier).  
+Nous n'avons pas implémenté de page pour que le client puisse voir ses commandes validées ( pas explicitement demandé ), le panier apparaitra donc vide après validation.   
+On aurait pu le faire avec une requête SQL similaire à celle de la page commandes réservée aux libraires (avec un WHERE sur l'idpersonne en plus)  

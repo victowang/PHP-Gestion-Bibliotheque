@@ -21,7 +21,16 @@
             <h1>Liste des commandes</h1>
             <?php
 
-                $requete = "SELECT idcmd, nom, prenom FROM `commandes` JOIN `personnes` ON commandes.idpersonne=personnes.idpersonne";
+                if (($_SERVER["REQUEST_METHOD"] === "POST") and $_POST['delete']==="Supprimer") {
+                    $idCommande = $_POST['idcmd'];
+                    $requete = "DELETE FROM `lignescmd` WHERE idcmd='$idCommande'; DELETE FROM `commandes` WHERE idcmd='$idCommande';";
+                    $statement = $pdo->query($requete);
+                    print_r("Commande supprimée");
+                    header("Refresh:0");
+                    exit();
+                }
+
+                $requete = "SELECT idcmd, nom, prenom, validee FROM `commandes` JOIN `personnes` ON commandes.idpersonne=personnes.idpersonne";
                 $statement = $pdo->query($requete);
                 $arrayResultat = $statement->fetchAll();
                 if (!empty($arrayResultat)) {
@@ -31,7 +40,10 @@
                         <th>Numéro de commande</th>
                         <th>Nom</th>
                         <th>Prénom</th>
+                        <th>Validée ?</th>
                         <th>Détails de la commande</th>
+                        <th></th>
+                        <th></th>
                     </tr>  
 
                 <?php
@@ -42,7 +54,18 @@
                         echo '<td>'.$commande['idcmd'].'</td>';
                         echo '<td>'.$commande['nom'].'</td>';
                         echo '<td>'.$commande['prenom'].'</td>';
+                        if ($commande['validee']==='1') {
+                            echo '<td>Oui</td>';
+                        }
+                        else {
+                            echo '<td>Non</td>';
+                        }
                         echo '<td><a href="details.php?idcmd='.$commande['idcmd'].'">Voir les détails</a></td>';
+                        echo '<td> <form method = "POST" action = "">
+                                        <input type = "hidden" name="idcmd" value="'.$commande["idcmd"].'">
+                                        <input type = "submit" name = "delete" value = "Supprimer"> 
+                                    </form>
+                            </td>';
                         echo '</tr>';
                     } 
                     

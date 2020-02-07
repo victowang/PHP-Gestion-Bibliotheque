@@ -88,7 +88,7 @@ if (($_SERVER["REQUEST_METHOD"] === "GET") and isset($_GET['idcmd'])) {
             <?php
             } else {
             ?>
-                Cette commande n'existe pas.
+                Cette commande est vide ou n'existe pas.
                 
             <?php } ?>
     <?php } ?>

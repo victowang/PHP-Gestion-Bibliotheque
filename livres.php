@@ -30,7 +30,6 @@
 
             if (($_SERVER["REQUEST_METHOD"] === "POST") and $_POST['add']==="Ajouter au panier") {
                 $idCommande = $_POST['idcmd'];
-                print_r($idCommande);
                 $idOuvrage = $_POST['idOuvrage'];
                 $quantite = $_POST['qte'];
                 $requete = "SELECT COUNT(*) FROM `lignescmd` WHERE idcmd = '$idCommande' AND idouvrage='$idOuvrage'"; // on verifie s'il y a plus d'une ligne correspondant a cet ouvrage et cette commande

@@ -37,7 +37,7 @@ session_start();
         ?>
         <h1>Mon Panier</h1>
         <?php
-            $requete = "SELECT titre, auteur, prix, qte, idcmd FROM (SELECT idouvrage, qte, commandes.idcmd FROM `commandes` JOIN `lignescmd` ON commandes.idcmd=lignescmd.idcmd WHERE idpersonne=".$_SESSION['user_id']." AND commandes.validee=0) AS maCommande JOIN `ouvrages`ON maCommande.idouvrage=ouvrages.idouvrage;";
+            $requete = "SELECT titre, auteur, prix, SUM(qte) as qte, idcmd FROM (SELECT idouvrage, qte, commandes.idcmd FROM `commandes` JOIN `lignescmd` ON commandes.idcmd=lignescmd.idcmd WHERE idpersonne=".$_SESSION["user_id"]." AND commandes.validee=0) AS maCommande JOIN `ouvrages`ON maCommande.idouvrage=ouvrages.idouvrage GROUP BY titre, auteur, prix, idcmd;";
             $statement = $pdo->query($requete);
             $arrayResultat = $statement->fetchAll();
             if (!empty($arrayResultat)) {

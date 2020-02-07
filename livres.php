@@ -36,7 +36,15 @@
                 echo '<td>'.$livre['titre'].'</td>';
                 echo '<td>'.$livre['auteur'].'</td>';
                 echo '<td>'.$livre['prix'].'€</td>';
-                echo '<td>Ajouter au panier</td>';
+                echo '<td>
+                        <form>
+                            <input type = "submit" value = "-">
+                            Qt
+                            <input type = "submit" value = "+">
+
+                            <input type = "submit" value = "Ajouter">
+                        </form>
+                    </td>';
                 echo '</tr>';
             }
         ?>
